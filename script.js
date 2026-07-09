@@ -338,26 +338,28 @@
       submitButton.disabled = true;
       
       try {
-        // Simulate API call (replace with actual fetch in production)
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Show success message
-        showToast(`Thanks for your message, ${name}! I'll get back to you soon.`);
-        form.reset();
-        
-        // In production, you would use:
-        /*
-        const response = await fetch('/send', {
+        const response = await fetch(form.action, {
           method: 'POST',
-          body: formData
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            message,
+            _subject: form.querySelector('input[name="_subject"]').value,
+            _captcha: form.querySelector('input[name="_captcha"]').value,
+            _template: form.querySelector('input[name="_template"]').value
+          })
         });
         
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
         
-        const data = await response.json();
-        showToast('Message sent successfully!');
+        showToast(`Thanks for your message, ${name}! I'll get back to you soon.`);
         form.reset();
-        */
       } catch (error) {
         console.error('Error:', error);
         showToast('There was an error sending your message. Please try again.');
@@ -408,7 +410,9 @@
       // Native lazy loading is supported
       const lazyImages = document.querySelectorAll('img[loading="lazy"]');
       lazyImages.forEach(img => {
-        img.src = img.dataset.src;
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+        }
       });
     } else {
       // Fallback for browsers without native lazy loading
@@ -416,7 +420,9 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const img = entry.target;
-            img.src = img.dataset.src;
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+            }
             lazyLoadObserver.unobserve(img);
           }
         });

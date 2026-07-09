@@ -1,12 +1,13 @@
-const CACHE_NAME = 'miheer-portfolio-v1';
+const CACHE_NAME = 'miheer-portfolio-v4';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/style.css',
   '/script.js',
-  '/assets/album_cover.jpg',
-  '/assets/twitter_headers.jpg',
-  '/assets/youtube_thumbnail.jpg'
+  '/sw.js',
+  '/assets/album_cover.jpg?v=20260710-1',
+  '/assets/twitter_headers.png?v=20260710-1',
+  '/assets/youtube_thumbnail.jpg?v=20260710-1'
 ];
 
 // Install Event - Pre-cache assets
