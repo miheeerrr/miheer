@@ -584,6 +584,9 @@
     }
 
     .portfolio-item {
+      display: block;
+      text-decoration: none;
+      color: inherit;
       position: relative;
       overflow: hidden;
       border-radius: var(--border-radius);
