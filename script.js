@@ -136,27 +136,23 @@
     // Animate stats with counting effect
     const statCards = document.querySelectorAll('.stat-card h3');
     statCards.forEach(card => {
-      const target = +card.innerText.replace(/[^0-9]/g, '');
-      const suffix = card.innerText.replace(/^[0-9.]+/, '');
-      const duration = 2;
+      const targetVal = parseFloat(card.innerText) || 0;
+      const suffix = card.innerText.replace(/[0-9.]/g, ''); // Extracts '+' or other non-numeric parts
+      const isDecimal = card.innerText.includes('.');
       
-      gsap.from(card, {
+      let obj = { val: 0 };
+      
+      gsap.to(obj, {
+        val: targetVal,
+        duration: 2,
         scrollTrigger: {
           trigger: card,
           start: 'top 80%',
           toggleActions: 'play none none none',
         },
-        innerText: 0,
-        duration: duration,
         ease: 'power1.out',
-        snap: { innerText: 1 },
-        modifiers: {
-          innerText: value => {
-            if (card.innerText.includes('%')) {
-              return Math.floor(value) + suffix;
-            }
-            return Math.floor(value) + suffix;
-          }
+        onUpdate: () => {
+          card.innerText = (isDecimal ? obj.val.toFixed(1) : Math.floor(obj.val)) + suffix;
         }
       });
     });
