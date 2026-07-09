@@ -4,8 +4,8 @@ const ASSETS_TO_CACHE = [
   '/index.html',
   '/style.css',
   '/script.js',
-  '/assets/brand_identity.jpg',
-  '/assets/social_media.jpg',
+  '/assets/album_cover.jpg',
+  '/assets/twitter_headers.jpg',
   '/assets/youtube_thumbnail.jpg'
 ];
 
